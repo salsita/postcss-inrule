@@ -1,0 +1,23 @@
+{
+  "name": "postcss-inrule",
+  "version": "1.0.0",
+  "description": "desc",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mystrdat/postcss-inrule.git"
+  },
+  "author": "mystrdat",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mystrdat/postcss-inrule/issues"
+  },
+  "homepage": "https://github.com/mystrdat/postcss-inrule#readme",
+  "dependencies": {
+    "object-assign": "^4.1.0",
+    "postcss": "^5.2.4"
+  }
+}
