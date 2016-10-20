@@ -2,7 +2,6 @@ var postcss = require('postcss'),
     assign = require('object-assign');
 
 // Get index of inRule tags
-// TODO improve this
 function getTagIndex (string, tag) {
   var tags = string.match('^' + tag + '+');
   return (tags && tags[0].length) || 0;
@@ -76,7 +75,7 @@ module.exports = postcss.plugin('postcss-inrule', function(options) {
 
     // TODO
     // test options inheritance
-    // write some fuckin tests
+    // write some actual tests
     // improve tagIndex regex
 
     // Options
