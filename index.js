@@ -37,33 +37,32 @@ function processModifications (clone, params, options, inRule) {
         currentIndex = Math.max(appendIndex, insertIndex, replaceIndex),
         modifier = param.slice(currentIndex, param.length),
         modified = false,
-        current = clone,
         nodeCount = 0;
-    while (current.parent && !modified) {
-      var selectors = current.parent.selectors;
+    while (clone.parent && !modified) {
+      var selectors = clone.parent.selectors;
       if (selectors) {
         nodeCount++;
-        if (nodeCount >= currentIndex && current.parent.type !== 'root') {
+        if (nodeCount >= currentIndex && clone.parent.type !== 'root') {
           // Append
           if (appendIndex > 0) {
-            current.parent.selectors = selectors.map(function (selector) {
+            clone.parent.selectors = selectors.map(function (selector) {
               return selector + modifier;
             })
           // Insert
           } else if (insertIndex > 0) {
-            current.parent.selectors = selectors.map(function (selector) {
+            clone.parent.selectors = selectors.map(function (selector) {
               return selector + ' ' + modifier;
             })
-          // Replace
+
           } else if (replaceIndex > 0) {
-            current.parent.selectors = [modifier];
+            clone.parent.selectors = [modifier];
           } else {
             throw inRule.error("No valid tag found", { word: param });
           }
           modified = true;
         }
       }
-      current = current.parent;
+      clone = clone.parent;
     }
     if (!modified) {
       throw inRule.error("No parent to modify found", { word: param });
