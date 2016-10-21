@@ -2,13 +2,13 @@ var postcss = require('postcss'),
     assign = require('object-assign');
 
 // Get index of inRule tags
-function getTagIndex (string, tag) {
+function getTagIndex(string, tag) {
   var tags = string.match('^' + tag + '+');
-  return (tags && tags[0].length) || 0;
+  return tags && tags[0].length || 0;
 }
 
 // Lil' Shavy™
-function getShavedClone (clone) {
+function getShavedClone(clone) {
   var element, current, first = true;
   // Find current element and remove its props
   clone.walkAtRules('in', function (inRule) {
@@ -21,15 +21,15 @@ function getShavedClone (clone) {
   // Clean all parent props that don't lead to current element
   while (current.parent) {
     current.parent.each(function (node) {
-      (node !== current) && node.remove();
-    })
+      node !== current && node.remove();
+    });
     current = current.parent;
   }
   return element;
 }
 
 // Process modifications on clone
-function processModifications (clone, params, options, inRule) {
+function processModifications(clone, params, options, inRule) {
   for (var param of params) {
     var appendIndex = getTagIndex(param, options.tagAppend),
         insertIndex = getTagIndex(param, options.tagInsert),
@@ -47,17 +47,17 @@ function processModifications (clone, params, options, inRule) {
           if (appendIndex > 0) {
             clone.parent.selectors = selectors.map(function (selector) {
               return selector + modifier;
-            })
+            });
           // Insert
           } else if (insertIndex > 0) {
             clone.parent.selectors = selectors.map(function (selector) {
               return selector + ' ' + modifier;
-            })
-
+            });
+          // Replace
           } else if (replaceIndex > 0) {
             clone.parent.selectors = [modifier];
           } else {
-            throw inRule.error("No valid tag found", { word: param });
+            throw inRule.error('No valid tag found', { word: param });
           }
           modified = true;
         }
@@ -65,16 +65,15 @@ function processModifications (clone, params, options, inRule) {
       clone = clone.parent;
     }
     if (!modified) {
-      throw inRule.error("No parent to modify found", { word: param });
+      throw inRule.error('No parent to modify found', { word: param });
     }
   }
   return clone;
 }
 
-module.exports = postcss.plugin('postcss-inrule', function(options) {
-  return function(css, options) {
+module.exports = postcss.plugin('postcss-inrule', function (options) {
+  return function (css) {
 
-    // TODO
     // test options inheritance
     // write some actual tests
     // improve tagIndex regex
@@ -89,10 +88,10 @@ module.exports = postcss.plugin('postcss-inrule', function(options) {
       bubble: ['document', 'media', 'supports']
     };
     options = assign({
-        tagAppend: options.tagAppend || defaultOptions.tagAppend,
-        tagInsert: options.tagInsert || defaultOptions.tagInsert,
-        tagReplace: options.tagReplace || defaultOptions.tagReplace,
-        bubble: options.bubble || defaultOptions.bubble
+      tagAppend: options.tagAppend || defaultOptions.tagAppend,
+      tagInsert: options.tagInsert || defaultOptions.tagInsert,
+      tagReplace: options.tagReplace || defaultOptions.tagReplace,
+      bubble: options.bubble || defaultOptions.bubble
     }, options);
 
     // Process @in at-rules
@@ -111,5 +110,5 @@ module.exports = postcss.plugin('postcss-inrule', function(options) {
       // Remove original @in rule and all children
       inRule.removeAll().remove();
     });
-  }
+  };
 });
