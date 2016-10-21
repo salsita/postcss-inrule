@@ -78,6 +78,7 @@ module.exports = postcss.plugin('postcss-inrule', function(options) {
     // test options inheritance
     // write some actual tests
     // improve tagIndex regex
+    // remove immediate at-rules that have no decls from original node
 
     // Options
     options = options || {};
@@ -105,7 +106,7 @@ module.exports = postcss.plugin('postcss-inrule', function(options) {
         // Process modifications and append new rule to root
         params = postcss.list.space(params);
         processModifications(clone, params, options, inRule);
-        inRule.each(function (child) { clone.append(child) });
+        clone.append(inRule.nodes);
         css.append(clone.root());
       }
       // Remove original @in rule and all children
