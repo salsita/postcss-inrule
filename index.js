@@ -99,9 +99,8 @@ module.exports = postcss.plugin('postcss-inrule', function(options) {
     css.walkAtRules('in', function (inRule) {
 
       // Clone a prop-less tree clone for every ',' param
-      var rule = inRule.root().clone();
       for (var params of inRule.params.split(',')) {
-        var clone = getShavedClone(rule.clone());
+        var clone = getShavedClone(inRule.root().clone());
 
         // Process modifications and append new rule to root
         params = postcss.list.space(params);
