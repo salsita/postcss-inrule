@@ -8,17 +8,17 @@ function getTagIndex (string, tag) {
 }
 
 // Lil' Shavy™
-function getShavedClone (clone, props) {
-  var element, current, nodeCount = 0;
-  // Save first current element and remove its props
+function getShavedClone (clone) {
+  var element, current, first = true;
+  // Find current element and remove its props
   clone.walkAtRules('in', function (inRule) {
-    nodeCount++;
-    if (nodeCount === 1) {
-      element = current = inRule.parent;
+    if (first) {
+      first = false;
+      current = element = inRule.parent;
       element.removeAll();
     }
   });
-  // Clean all parent props that aren't the current child
+  // Clean all parent props that don't lead to current element
   while (current.parent) {
     current.parent.each(function (node) {
       (node !== current) && node.remove();
@@ -28,7 +28,7 @@ function getShavedClone (clone, props) {
   return element;
 }
 
-// Process inRule modifications on clone
+// Process modifications on clone
 function processModifications (clone, params, options, inRule) {
   for (var param of params) {
     var appendIndex = getTagIndex(param, options.tagAppend),
@@ -39,20 +39,22 @@ function processModifications (clone, params, options, inRule) {
         modified = false,
         current = clone,
         nodeCount = 0;
-
     while (current.parent && !modified) {
       var selectors = current.parent.selectors;
       if (selectors) {
         nodeCount++;
-        if (nodeCount >= currentIndex) {
+        if (nodeCount >= currentIndex && current.parent.type !== 'root') {
+          // Append
           if (appendIndex > 0) {
             current.parent.selectors = selectors.map(function (selector) {
               return selector + modifier;
             })
+          // Insert
           } else if (insertIndex > 0) {
             current.parent.selectors = selectors.map(function (selector) {
               return selector + ' ' + modifier;
             })
+          // Replace
           } else if (replaceIndex > 0) {
             current.parent.selectors = [modifier];
           } else {
@@ -67,7 +69,7 @@ function processModifications (clone, params, options, inRule) {
       throw inRule.error("No parent to modify found", { word: param });
     }
   }
-  return current;
+  return clone;
 }
 
 module.exports = postcss.plugin('postcss-inrule', function(options) {
@@ -96,19 +98,19 @@ module.exports = postcss.plugin('postcss-inrule', function(options) {
     // Process @in at-rules
     css.walkAtRules('in', function (inRule) {
 
-      // Clone a prop-less node tree for every param
+      // Clone a prop-less tree clone for every ',' param
+      var rule = inRule.root().clone();
       for (var params of inRule.params.split(',')) {
-        params = postcss.list.space(params);
-        var props = inRule.clone().nodes,
-            clone = getShavedClone(inRule.root().nodes[0].clone());
+        var clone = getShavedClone(rule.clone());
 
-        // Process inRule modifications and append rule to root
-        clone.append(props);
+        // Process modifications and append new rule to root
+        params = postcss.list.space(params);
         processModifications(clone, params, options, inRule);
+        inRule.each(function (child) { clone.append(child) });
         css.append(clone.root());
       }
-      // Remove original @in rule after all clones are processed
-      inRule.remove();
+      // Remove original @in rule and all children
+      inRule.removeAll().remove();
     });
   }
 });
