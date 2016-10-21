@@ -84,14 +84,12 @@ module.exports = postcss.plugin('postcss-inrule', function (options) {
     var defaultOptions = {
       tagAppend: '<',
       tagInsert: '\\^',
-      tagReplace: '@',
-      bubble: ['document', 'media', 'supports']
+      tagReplace: '@'
     };
     options = assign({
       tagAppend: options.tagAppend || defaultOptions.tagAppend,
       tagInsert: options.tagInsert || defaultOptions.tagInsert,
-      tagReplace: options.tagReplace || defaultOptions.tagReplace,
-      bubble: options.bubble || defaultOptions.bubble
+      tagReplace: options.tagReplace || defaultOptions.tagReplace
     }, options);
 
     // Process @in at-rules
