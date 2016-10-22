@@ -77,11 +77,11 @@ ul, ol {
       text-decoration: underline;
 
       @in @.orangered {
-        color: orange; // ul div a, ol div a { };
+        color: orange; // ul .orangered a, ol .orangered a { };
       }
 
-      @in @@.links {
-        background: pink; // .links li a { };
+      @in @@.links @span {
+        background: pink; // .links span a { };
       }
     }
   }
