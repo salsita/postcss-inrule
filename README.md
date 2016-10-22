@@ -2,11 +2,11 @@
 
 The one rule to nest them all!
 
-`postcss-inrule` is a port of [inStyle](https://github.com/salsita/inStyle) for SASS, giving you an intuitive way to style the current element based on parent variants without repeating complex queries.
-
 https://css-tricks.com/instyle-current-selector-sass/
 
-Just like a nested Media Query, inRule describes its parent element. Configurable special characters are used to easily describe all possible relationships inside its parent tree and produce new selectors.
+Just like a nested Media Query, `inRule` describes its parent element. Configurable special characters are used to easily describe all possible relationships inside its parent tree and produce new selectors.
+
+Also available for [SASS 3.4+](https://github.com/salsita/inStyle).
 
 ## Installation
 
