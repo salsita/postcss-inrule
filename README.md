@@ -29,6 +29,10 @@ Appending to one of current element parents is done with the `<` special charact
       color: red; // .my-app.expanded .widget { };
     }
 
+    @in <.mobile, <.tablet {
+      width: 50vw; // .my-app.mobile .widget, .my-app.tablet .widget { };
+    }
+
     @media (max-width: 768px) {
       float: left;
     }
