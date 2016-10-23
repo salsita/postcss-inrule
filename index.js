@@ -37,20 +37,19 @@ function getShavedClone(clone) {
 // Process modifications on clone
 function processModifications(clone, params, options, inRule) {
   for (var param of params) {
-    var appendIndex = getTagIndex(param, options.tagAppend),
+    var current = clone,
+        appendIndex = getTagIndex(param, options.tagAppend),
         insertIndex = getTagIndex(param, options.tagInsert),
         replaceIndex = getTagIndex(param, options.tagReplace),
         currentIndex = Math.max(appendIndex, insertIndex, replaceIndex),
+        nodeIndex = current.type !== 'rule' ? -1 : 0,
         modifier = param.slice(currentIndex, param.length),
-        current = clone,
-        modified = false,
-        nodeCount = 0;
+        modified = false;
     while (current.parent && !modified) {
       var selectors = current.parent.selectors;
-      current.type !== 'rule' && nodeCount--;
       if (selectors) {
-        nodeCount++;
-        if (nodeCount >= currentIndex && clone.parent.type !== 'root') {
+        nodeIndex++;
+        if (nodeIndex >= currentIndex && clone.parent.type !== 'root') {
           // Append
           if (appendIndex > 0) {
             current.parent.selectors = selectors.map(function (selector) {
@@ -115,7 +114,7 @@ module.exports = postcss.plugin('postcss-inrule', function (options) {
         }
         css.append(clone.root());
       }
-      // Remove empty nodes from original tree
+      // Remove empty parent nodes from original tree
       while (!inRule.parent.nodes.some(function (node){
         return node.type ===  'decl';
       }) && inRule.parent.type !== 'root') { inRule = inRule.parent; }
