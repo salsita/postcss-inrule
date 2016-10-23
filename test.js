@@ -63,3 +63,22 @@ test('Replace multiple in parent selector', t => {
     'body{div{h2{@in @.mod1 @@[mod2]{prop: value;}}}}',
     'body{div{h2{}}}[mod2]{.mod1{h2{prop: value}}}');
 });
+
+test('Multiple operations in selector', t => {
+  return run(t,
+    'body{div{h2{span{@in <.mod1 ^^.mod2 @@@.mod3{prop: value;}}}}}',
+    'body{div{h2{span{}}}}.mod3{div .mod2{h2.mod1{span{prop: value}}}}');
+});
+
+test('Multiple space separated operations in selector', t => {
+  return run(t,
+    'body{div{h2{span{@in <.mod1 ^^.mod2 @@@.mod3, <.mod3 ^^.mod1 @@@.mod2{prop: value;}}}}}', // eslint-disable-line max-len
+    'body{div{h2{span{}}}}.mod3{div .mod2{h2.mod1{span{prop: value}}}}.mod2{div .mod1{h2.mod3{span{prop: value}}}}'); // eslint-disable-line max-len
+});
+
+test('Passing custom tag options', t => {
+  return run(t,
+    'body{div{h2{span{@in +.mod1 **.mod2 %%%.mod3{prop: value;}}}}}',
+    'body{div{h2{span{}}}}.mod3{div .mod2{h2.mod1{span{prop: value}}}}',
+    { tagAppend: '\\+', tagInsert: '\\*', tagReplace: '%' });
+});
