@@ -18,8 +18,8 @@ test('Append to parent selector', t => {
 
 test('Append to parent multiselector', t => {
   return run(t,
-    'body{div, span{h2{@in <.mod{prop: value;}}}}',
-    'body{div, span{h2{}}}body{div.mod, span.mod{h2{prop: value}}}');
+    'body{div,span{h2{@in <.mod{prop: value;}}}}',
+    'body{div,span{h2{}}}body{div.mod,span.mod{h2{prop: value}}}');
 });
 
 test('Append multiple to parent selector', t => {
@@ -36,8 +36,8 @@ test('Insert in parent selector', t => {
 
 test('Insert in parent multiselector', t => {
   return run(t,
-    'body{div, span{h2{@in ^.mod{prop: value;}}}}',
-    'body{div, span{h2{}}}body{div .mod, span .mod{h2{prop: value}}}');
+    'body{div,span{h2{@in ^.mod{prop: value;}}}}',
+    'body{div,span{h2{}}}body{div .mod,span .mod{h2{prop: value}}}');
 });
 
 test('Insert multiple in parent selector', t => {
@@ -54,8 +54,8 @@ test('Replace in parent selector', t => {
 
 test('Replace in parent multiselector', t => {
   return run(t,
-    'body{div, span{h2{@in @.mod{prop: value;}}}}',
-    'body{div, span{h2{}}}body{.mod{h2{prop: value}}}');
+    'body{div,span{h2{@in @.mod{prop: value;}}}}',
+    'body{div,span{h2{}}}body{.mod{h2{prop: value}}}');
 });
 
 test('Replace multiple in parent selector', t => {
