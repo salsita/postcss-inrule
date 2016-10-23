@@ -1,5 +1,5 @@
 /*
-  postcss-inrule (v1.0.2)
+  postcss-inrule (v1.1.0)
   github.com/salsita/postcss-inrule
   2016 | MIT
   ============================== */
@@ -108,9 +108,17 @@ module.exports = postcss.plugin('postcss-inrule', function (options) {
         // Process modifications and append new rule to root
         params = postcss.list.space(params);
         processModifications(clone, params, options, inRule);
-        clone.append(inRule.nodes);
+        if (inRule.nodes.length > 0) {
+          clone.append(inRule.nodes);
+        } else {
+          throw inRule.error('No declarations or other children', { word: inRule });
+        }
         css.append(clone.root());
       }
+      // Remove empty nodes from original tree
+      while (!inRule.parent.nodes.some(function (node){
+        return node.type ===  'decl';
+      }) && inRule.parent.type !== 'root') { inRule = inRule.parent; }
       // Remove original @in rule and all children
       inRule.removeAll().remove();
     });
