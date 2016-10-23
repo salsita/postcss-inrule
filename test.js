@@ -76,6 +76,24 @@ test('Multiple space separated operations in selector', t => {
     'body{div{h2{span{}}}}.mod3{div .mod2{h2.mod1{span{prop: value}}}}.mod2{div .mod1{h2.mod3{span{prop: value}}}}'); // eslint-disable-line max-len
 });
 
+test('Multiple plugin calls in root selector', t => {
+  return run(t,
+    'body{div{h2{span{@in <.mod1{prop: value;}}@in ^.mod2{prop: value;}}}}',
+    'body{div{h2{span{}}}}body{div{h2.mod1{span{prop: value}}}}body{div .mod2{h2{prop: value}}}'); // eslint-disable-line max-len
+});
+
+test('Nested plugin calls', t => {
+  return run(t,
+    'body{div{h2{span{@in <.mod1{prop: value;@in ^.mod2{prop: value;}}}}}}',
+    'body{div{h2{span{}}}}body{div{h2.mod1{span{prop: value}}}}body{div{h2.mod1 .mod2{span{prop: value}}}}'); // eslint-disable-line max-len
+});
+
+test('Nested in media query', t => {
+  return run(t,
+    'body{div{h2{span{@media (max-width: 900px){@in <.mod{prop: value;}}}}}}',
+    'body{div{h2{span{@media (max-width: 900px){}}}}}body{div{h2.mod{span{@media (max-width: 900px){prop: value}}}}}'); // eslint-disable-line max-len
+});
+
 test('Passing custom tag options', t => {
   return run(t,
     'body{div{h2{span{@in +.mod1 **.mod2 %%%.mod3{prop: value;}}}}}',
