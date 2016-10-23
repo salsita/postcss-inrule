@@ -10,8 +10,7 @@ Also available for [SASS 3.4+](https://github.com/salsita/inStyle).
 
 ## Installation
 
-`npm install postcss-inrule`  
-`yarn add postcss-inrule`
+`npm install postcss-inrule`
 
 Needs to be used **before** style unwrappers like `postcss-nested`.
 

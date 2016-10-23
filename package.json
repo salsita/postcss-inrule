@@ -4,8 +4,7 @@
   "description": "desc",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint index.js"
+    "test": "ava && eslint *.js"
   },
   "repository": {
     "type": "git",
@@ -22,6 +21,7 @@
     "postcss": "^5.2.4"
   },
   "devDependencies": {
+    "ava": "^0.16.0",
     "eslint": "^3.8.1",
     "eslint-config-postcss": "^2.0.2"
   }
