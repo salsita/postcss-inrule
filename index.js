@@ -1,3 +1,9 @@
+/*
+  postcss-inrule (v1.0.0)
+  github.com/salsita/postcss-inrule
+  2016 | MIT
+  ============================== */
+
 var postcss = require('postcss'),
     assign = require('object-assign');
 
