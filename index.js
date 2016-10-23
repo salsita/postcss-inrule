@@ -1,5 +1,5 @@
 /*
-  postcss-inrule (v1.0.0)
+  postcss-inrule (v1.0.1)
   github.com/salsita/postcss-inrule
   2016 | MIT
   ============================== */
@@ -42,33 +42,34 @@ function processModifications(clone, params, options, inRule) {
         replaceIndex = getTagIndex(param, options.tagReplace),
         currentIndex = Math.max(appendIndex, insertIndex, replaceIndex),
         modifier = param.slice(currentIndex, param.length),
+        current = clone,
         modified = false,
         nodeCount = 0;
-    while (clone.parent && !modified) {
-      var selectors = clone.parent.selectors;
+    while (current.parent && !modified) {
+      var selectors = current.parent.selectors;
       if (selectors) {
         nodeCount++;
         if (nodeCount >= currentIndex && clone.parent.type !== 'root') {
           // Append
           if (appendIndex > 0) {
-            clone.parent.selectors = selectors.map(function (selector) {
+            current.parent.selectors = selectors.map(function (selector) {
               return selector + modifier;
             });
           // Insert
           } else if (insertIndex > 0) {
-            clone.parent.selectors = selectors.map(function (selector) {
+            current.parent.selectors = selectors.map(function (selector) {
               return selector + ' ' + modifier;
             });
           // Replace
           } else if (replaceIndex > 0) {
-            clone.parent.selectors = [modifier];
+            current.parent.selectors = [modifier];
           } else {
             throw inRule.error('No valid tag found', { word: param });
           }
           modified = true;
         }
       }
-      clone = clone.parent;
+      current = current.parent;
     }
     if (!modified) {
       throw inRule.error('No parent to modify found', { word: param });
