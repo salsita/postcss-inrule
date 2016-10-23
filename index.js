@@ -81,7 +81,6 @@ function processModifications(clone, params, options, inRule) {
 module.exports = postcss.plugin('postcss-inrule', function (options) {
   return function (css) {
 
-    // write some actual tests
     // improve tagIndex regex
     // remove immediate at-rules that have no decls from original node
 
