@@ -10,7 +10,8 @@ Also available for [SASS 3.4+](https://github.com/salsita/inStyle).
 
 ## Installation
 
-`npm install postcss-inrule`
+`npm install postcss-inrule`  
+`yarn add postcss-inrule`
 
 Needs to be used **before** style unwrappers like `postcss-nested`.
 
@@ -76,8 +77,8 @@ ul, ol {
     a {
       text-decoration: underline;
 
-      @in @.orangered {
-        color: orange; // ul .orangered a, ol .orangered a { };
+      @in @@.modifier {
+        color: orange; // ul .modifier a, ol .modifier a { };
       }
 
       @in @@.links @span {
