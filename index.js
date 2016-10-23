@@ -1,5 +1,5 @@
 /*
-  postcss-inrule (v1.0.1)
+  postcss-inrule (v1.0.2)
   github.com/salsita/postcss-inrule
   2016 | MIT
   ============================== */
@@ -47,6 +47,7 @@ function processModifications(clone, params, options, inRule) {
         nodeCount = 0;
     while (current.parent && !modified) {
       var selectors = current.parent.selectors;
+      current.type !== 'rule' && nodeCount--;
       if (selectors) {
         nodeCount++;
         if (nodeCount >= currentIndex && clone.parent.type !== 'root') {
