@@ -4,7 +4,7 @@ The one rule to nest them all!
 
 https://css-tricks.com/instyle-current-selector-sass/
 
-Just like a nested Media Query, `inRule` describes its parent element. Configurable special characters are used to easily describe all possible relationships inside its parent tree and produce new selectors.
+Just like a nested media query, `inRule` describes its parent element. Configurable special characters are used to easily modify all possible relationships inside its parent tree and produce new selectors.
 
 Also available for [SASS 3.4+](https://github.com/salsita/inStyle).
 
