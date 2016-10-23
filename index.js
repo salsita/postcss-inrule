@@ -81,9 +81,6 @@ function processModifications(clone, params, options, inRule) {
 module.exports = postcss.plugin('postcss-inrule', function (options) {
   return function (css) {
 
-    // improve tagIndex regex
-    // remove immediate at-rules that have no decls from original node
-
     // Options
     options = options || {};
     var defaultOptions = {
@@ -110,14 +107,10 @@ module.exports = postcss.plugin('postcss-inrule', function (options) {
         if (inRule.nodes.length > 0) {
           clone.append(inRule.nodes);
         } else {
-          throw inRule.error('No declarations or other children', { word: inRule });
+          throw inRule.error('No children or decls', { word: inRule });
         }
         css.append(clone.root());
       }
-      // Remove empty parent nodes from original tree
-      while (!inRule.parent.nodes.some(function (node){
-        return node.type ===  'decl';
-      }) && inRule.parent.type !== 'root') { inRule = inRule.parent; }
       // Remove original @in rule and all children
       inRule.removeAll().remove();
     });
