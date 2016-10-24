@@ -1,5 +1,5 @@
 /*
-  postcss-inrule (v1.1.0)
+  postcss-inrule (v1.1.1)
   github.com/salsita/postcss-inrule
   2016 | MIT
   ============================== */
