@@ -1,4 +1,7 @@
-# postcss-inrule
+# postcss-inrule [![Build Status][ci-img]][ci]
+
+[ci]: https://travis-ci.org/salsita/postcss-inrule
+[ci-img]: https://travis-ci.org/salsita/postcss-inrule.svg
 
 <img align="right" width="95" height="95"
      title="Philosopher’s stone, logo of PostCSS"
