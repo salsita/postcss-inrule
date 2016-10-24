@@ -1,5 +1,9 @@
 # postcss-inrule
 
+<img align="right" width="80" height="80"
+     title="Philosopher’s stone, logo of PostCSS"
+     src="http://postcss.github.io/postcss/logo.svg">
+
 The one rule to nest them all!
 
 https://css-tricks.com/instyle-current-selector-sass/
