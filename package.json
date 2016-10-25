@@ -4,7 +4,7 @@
   "description": "desc",
   "main": "index.js",
   "scripts": {
-    "test": "ava -v && eslint src/index.js test.js",
+    "test": "ava -v && eslint src/plugin.js test.js",
     "build": "babel src/plugin.js -o index.js --presets es2015",
     "postinstall": "npm run build"
   },
