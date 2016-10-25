@@ -1,7 +1,17 @@
 {
   "name": "postcss-inrule",
   "version": "1.2.4",
-  "description": "desc",
+  "description": "The one rule to nest them all!",
+  "keywords": [
+    "postcss",
+    "css",
+    "inStyle",
+    "postcss-plugin",
+    "selector",
+    "current selector",
+    "modify parents",
+    "postcss-inrule"
+  ],
   "main": "index.js",
   "scripts": {
     "build": "babel src/plugin.js -o index.js --presets es2015 --plugins transform-object-assign",
