@@ -1,5 +1,5 @@
 {
-  "extends": "eslint-config-postcss/es5",
+  "extends": "eslint-config-postcss",
   "rules": {
     "indent": [2, 2, {"VariableDeclarator": 2}]
   }
