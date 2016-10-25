@@ -19,7 +19,6 @@
   },
   "homepage": "https://github.com/mystrdat/postcss-inrule#readme",
   "dependencies": {
-    "object-assign": "^4.1.0",
     "postcss": "^5.2.4"
   },
   "devDependencies": {

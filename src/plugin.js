@@ -5,7 +5,6 @@
   ============================== */
 
 import postcss from 'postcss';
-import assign from 'object-assign';
 
 // Get index of inRule tags
 function getTagIndex(string, tag) {
@@ -84,7 +83,7 @@ export default postcss.plugin('postcss-inrule', options => css => {
     tagInsert: '\\^',
     tagReplace: '@'
   };
-  options = assign({
+  options = Object.assign({
     tagAppend: options.tagAppend || defaultOptions.tagAppend,
     tagInsert: options.tagInsert || defaultOptions.tagInsert,
     tagReplace: options.tagReplace || defaultOptions.tagReplace
