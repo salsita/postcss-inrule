@@ -1,6 +1,6 @@
 {
   "name": "postcss-inrule",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "The one rule to nest them all!",
   "keywords": [
     "postcss",
