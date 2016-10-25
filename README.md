@@ -1,7 +1,9 @@
-# postcss-inrule [![Build Status][ci-img]][ci]
+# postcss-inrule [![Build Status][ci-img]][ci] [![NPM Version][npm-img]][npm]
 
 [ci]: https://travis-ci.org/salsita/postcss-inrule
 [ci-img]: https://travis-ci.org/salsita/postcss-inrule.svg
+[npm]: https://www.npmjs.com/package/postcss-inrule
+[npm-img]: https://img.shields.io/npm/v/postcss-inrule.svg
 
 <img align="right" width="95" height="95"
      title="Philosopher’s stone, logo of PostCSS"
