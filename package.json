@@ -1,6 +1,6 @@
 {
   "name": "postcss-inrule",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "desc",
   "main": "index.js",
   "scripts": {
