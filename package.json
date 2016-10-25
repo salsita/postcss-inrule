@@ -4,9 +4,8 @@
   "description": "desc",
   "main": "index.js",
   "scripts": {
-    "test": "ava -v && eslint src/plugin.js test.js",
     "build": "babel src/plugin.js -o index.js --presets es2015 --plugins transform-object-assign",
-    "postinstall": "npm run build"
+    "test": "npm run build && ava -v && eslint src/plugin.js test.js"
   },
   "repository": {
     "type": "git",
