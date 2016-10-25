@@ -85,7 +85,7 @@ ul, ol {
     a {
       text-decoration: underline;
 
-      @in @@.modifier {
+      @in @.modifier {
         color: orange; // ul .modifier a, ol .modifier a { };
       }
 
