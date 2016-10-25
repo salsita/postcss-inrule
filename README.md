@@ -1,4 +1,4 @@
-# postcss-inrule [![Build Status][ci-img]][ci] [![NPM Version][npm-img]][npm]
+# postcss-inrule [![NPM Version][npm-img]][npm] [![Build Status][ci-img]][ci]
 
 [ci]: https://travis-ci.org/salsita/postcss-inrule
 [ci-img]: https://travis-ci.org/salsita/postcss-inrule.svg
