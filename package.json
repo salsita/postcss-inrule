@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mystrdat/postcss-inrule.git"
+    "url": "git+https://github.com/salsita/postcss-inrule.git"
   },
   "author": "mystrdat",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mystrdat/postcss-inrule/issues"
+    "url": "https://github.com/salsita/postcss-inrule/issues"
   },
-  "homepage": "https://github.com/mystrdat/postcss-inrule#readme",
+  "homepage": "https://github.com/salsita/postcss-inrule#readme",
   "dependencies": {
     "postcss": "^5.2.4"
   },
@@ -25,7 +25,7 @@
     "babel-cli": "^6.18.0",
     "babel-plugin-transform-object-assign": "^6.8.0",
     "babel-preset-es2015": "^6.18.0",
-    "eslint": "^2.13.1",
+    "eslint": "^3.8.1",
     "eslint-config-postcss": "^2.0.2"
   }
 }
