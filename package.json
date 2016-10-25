@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "ava -v && eslint src/index.js test.js",
-    "postinstall": "babel src/plugin.js -o index.js --presets es2015"
+    "build": "babel src/plugin.js -o index.js --presets es2015",
+    "postinstall": "npm run build"
   },
   "repository": {
     "type": "git",
