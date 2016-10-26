@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import postcss from 'postcss';
 import test from 'ava';
 import plugin from './';
@@ -72,26 +73,32 @@ test('Multiple operations in selector', t => {
 
 test('Multiple space separated operations in selector', t => {
   return run(t,
-    'body{div{h2{span{@in <.mod1 ^^.mod2 @@@.mod3, <.mod3 ^^.mod1 @@@.mod2{prop: value;}}}}}', // eslint-disable-line max-len
-    'body{div{h2{span{}}}}.mod3{div .mod2{h2.mod1{span{prop: value}}}}.mod2{div .mod1{h2.mod3{span{prop: value}}}}'); // eslint-disable-line max-len
+    'body{div{h2{span{@in <.mod1 ^^.mod2 @@@.mod3, <.mod3 ^^.mod1 @@@.mod2{prop: value;}}}}}',
+    'body{div{h2{span{}}}}.mod3{div .mod2{h2.mod1{span{prop: value}}}}.mod2{div .mod1{h2.mod3{span{prop: value}}}}');
 });
 
 test('Multiple plugin calls in root selector', t => {
   return run(t,
     'body{div{h2{span{@in <.mod1{prop: value;}}@in ^.mod2{prop: value;}}}}',
-    'body{div{h2{span{}}}}body{div{h2.mod1{span{prop: value}}}}body{div .mod2{h2{prop: value}}}'); // eslint-disable-line max-len
+    'body{div{h2{span{}}}}body{div{h2.mod1{span{prop: value}}}}body{div .mod2{h2{prop: value}}}');
 });
 
 test('Nested plugin calls', t => {
   return run(t,
     'body{div{h2{span{@in <.mod1{prop: value;@in ^.mod2{prop: value;}}}}}}',
-    'body{div{h2{span{}}}}body{div{h2.mod1{span{prop: value}}}}body{div{h2.mod1 .mod2{span{prop: value}}}}'); // eslint-disable-line max-len
+    'body{div{h2{span{}}}}body{div{h2.mod1{span{prop: value}}}}body{div{h2.mod1 .mod2{span{prop: value}}}}');
 });
 
 test('Nested in media query', t => {
   return run(t,
     'body{div{h2{span{@media (max-width: 900px){@in <.mod{prop: value;}}}}}}',
-    'body{div{h2{span{@media (max-width: 900px){}}}}}body{div{h2.mod{span{@media (max-width: 900px){prop: value}}}}}'); // eslint-disable-line max-len
+    'body{div{h2{span{@media (max-width: 900px){}}}}}body{div{h2.mod{span{@media (max-width: 900px){prop: value}}}}}');
+});
+
+test('Nested in multiple consecutive media queries', t => {
+  return run(t,
+    'body{div{h2{span{@media (max-width: 900px){@media (min-height: 480px){@media (orientation: landscape){@in <.mod{prop: value;}}}}}}}}',
+    'body{div{h2{span{@media (max-width: 900px){@media (min-height: 480px){@media (orientation: landscape){}}}}}}}body{div{h2.mod{span{@media (max-width: 900px){@media (min-height: 480px){@media (orientation: landscape){prop: value}}}}}}}');
 });
 
 test('Passing custom tag options', t => {
